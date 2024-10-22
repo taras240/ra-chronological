@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronological Sort</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- <button onclick="handleFile()">Завантажити</button> -->
+    <section class="controls">
+        <input type="file" id="fileInput" onchange="fileSelectedHandler()" accept=".xlsx, .xls">
+        <div class="flex-row" id="platform-filters__container">
+        </div>
+        <div class="">
+
+
+        </div>
+
+    </section>
+    <section class="data"></section>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
