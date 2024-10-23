@@ -49,22 +49,23 @@ section {
 
 .row-items {
     display: grid;
-    grid-template-columns: 2fr repeat(2, 0.75fr) repeat(2, 1fr) 0.5fr 1fr;
+    place-items: center;
+    grid-template-columns: 2fr 0.75fr 0.75fr 1fr 0.5fr 1fr;
 }
 
 .row:first-child {
-    background-color: black;
+    background-color: black !important;
     color: white;
     font-size: 1.2rem;
     position: sticky;
     top: 0;
 }
 
-.row {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.404);
+.row:nth-child(odd) {
+    background-color: rgba(211, 211, 211, 0.438);
 }
 
 .row-item {
     text-align: center;
-    border-right: 1px solid rgba(128, 128, 128, 0.404);
+    /* border: 1px solid lightgray; */
 }

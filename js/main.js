@@ -35,10 +35,7 @@ async function readExcel(fileContent) {
         sheetData.shift();
         return [...data, ...sheetData];
     }, []);
-    gamesArray = mergedData
-        .sort(
-            (a, b) => a.ParsedDate - b.ParsedDate
-        );;
+    gamesArray = mergedData;
     generateControls();
     // generateTable();
 }
@@ -103,7 +100,6 @@ async function generateTable() {
                 <li class="row-item">Name</li>
                 <li class="row-item">Platform</li>
                 <li class="row-item">Date</li>
-                <li class="row-item">GameID</li>
                 <li class="row-item">Producer</li>
                 <li class="row-item">Rating</li>
                 <li class="row-item">Comment</li>
@@ -113,19 +109,20 @@ async function generateTable() {
     mainSection.innerHTML = `
         <ul class='games-table'>
             ${header}
-            ${filteredArray.map(game =>
-        `<li class='row'>
-                    <ul class='row-items'>
-                        <li class="row-item">${game.Link ?? " "}</li>
-                        <li class="row-item">${game.Platform ?? " "}</li>
-                        <li class="row-item">${game.Date ?? " "}</li>
-                        <li class="row-item">${game.GameID ?? " "}</li>
-                        <li class="row-item">${game.Producer ?? " "}</li>
-                        <li class="row-item">${game.Rating ?? " "}</li>
-                        <li class="row-item">${game.Comment ?? " "}</li>
-                    </ul>
-                </li>`
-    ).join("")}
+            ${filteredArray.reduce((row, game) => {
+        row += `<li class='row'>
+                            <ul class='row-items'>
+                                <li class="row-item">${game.Link ?? " "}</li>
+                                <li class="row-item">${game.Platform ?? " "}</li>
+                                <li class="row-item">${game.Date ?? " "}</li>
+                                <li class="row-item">${game.Producer ?? " "}</li>
+                                <li class="row-item">${game.Rating ?? " "}</li>
+                                <li class="row-item">${game.Comment ?? " "}</li>
+                            </ul>
+                        </li>`;
+        return row;
+    }
+        , "")}
         </ul>
     `;
     mainSection.classList.remove("loading");
