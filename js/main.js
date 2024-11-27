@@ -10,13 +10,14 @@ async function readExcel(fileContent) {
     const workbook = XLSX.read(fileContent, { type: 'binary' });
     platforms = workbook.SheetNames;
     platforms.shift();
+    platforms.shift();
     visiblePlatforms = platforms;
     const mergedData = platforms.reduce((data, sheetName) => {
         const worksheet = workbook.Sheets[sheetName];
         const sheetData = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
             .reduce((data, row) => {
                 const parsedDate = new Date(row[2])
-                if (isNaN(parsedDate)) return data;
+                // if (isNaN(parsedDate)) return data;
                 const gameObject = {
                     Platform: sheetName,
                     GameID: row[0],
@@ -38,6 +39,22 @@ async function readExcel(fileContent) {
     gamesArray = mergedData;
     generateControls();
     // generateTable();
+}
+function downloadJSON(data = gamesArray, filename = 'data.json') {
+    // Перетворення об'єкта у JSON-рядок
+    const jsonString = JSON.stringify(data, null, 2);
+
+    // Створення тимчасового посилання
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+
+    // Імітація кліку для початку завантаження
+    link.click();
+
+    // Звільнення пам'яті
+    URL.revokeObjectURL(link.href);
 }
 function fileSelectedHandler() {
     const input = document.getElementById('fileInput');
